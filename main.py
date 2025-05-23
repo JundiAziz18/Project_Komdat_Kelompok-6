@@ -1,4 +1,4 @@
-from NRZL_LIB import nrzl_encode, nrzl_decode, plot_nrzl
+from NRZL_LIB import *
 
 text = input("Enter text to encode: ")
 text = text.strip()
