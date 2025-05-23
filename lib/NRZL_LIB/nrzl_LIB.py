@@ -1,3 +1,5 @@
+# lib/NRZL_LIB/nrzl_LIB.py
+
 import matplotlib.pyplot as plt
 
 def ascii_to_binary(text):
@@ -23,7 +25,7 @@ def plot_nrzl(signal, title="NRZ-L Signal", binary_str=None):
         time.extend([i, i + 1])
         voltage.extend([level, level])
 
-    plt.figure(figsize=(16, 9))
+    plt.figure(figsize=(12, 4))
     plt.title(title)
     plt.xlabel("Bit Time")
     plt.ylabel("Voltage (V)")
@@ -34,25 +36,6 @@ def plot_nrzl(signal, title="NRZ-L Signal", binary_str=None):
 
     if binary_str:
         for i, bit in enumerate(binary_str):
-            plt.text(i + 0.5, 5.5, bit, fontsize=12, ha='center')
+            plt.text(i + 0.4, 5.5, bit, fontsize=12, ha='center')
 
     plt.show()
-
-def full_nrzl_process(text):
-    print(f"\nInput text: {text}")
-
-    # Encode
-    encoded_signal, binary = nrzl_encode(text)
-    print(f"Encoded binary: {binary}")
-    plot_nrzl(encoded_signal, title="NRZ-L Encoded Signal", binary_str=binary)
-
-    # Decode
-    decoded_text = nrzl_decode(encoded_signal)
-    print(f"Decoded text: {decoded_text}")
-    decoded_signal, decoded_binary = nrzl_encode(decoded_text)
-    plot_nrzl(decoded_signal, title="NRZ-L Decoded Signal (re-encoded)", binary_str=decoded_binary)
-
-    return {
-        'binary_encoded': binary,
-        'decoded_text': decoded_text
-    }
