@@ -1,3 +1,14 @@
-# nrzl_LIB/__init__.py
+# File: NRZL_LIB/__init__.py
+from .nrzl_lib import  ( plot_hasil_nrzl,
+                        nrzl_enkoder,
+                        nrzl_dekoder,
+                        sinyal_digital,
+                        ascii_to_bin_nrzl,
+                        bin_to_ascii_nrzl)
 
-from .NRZL_LIB import nrzl_encode, nrzl_decode, plot_nrzl
+__all__ = [ 'plot_hasil_nrzl',
+            'nrzl_enkoder',
+            'nrzl_dekoder',
+            'sinyal_digital',
+            'ascii_to_bin_nrzl',
+            'bin_to_ascii_nrzl']

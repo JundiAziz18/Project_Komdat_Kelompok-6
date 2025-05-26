@@ -1,0 +1,10 @@
+setup.py
+lib/Kelompok6_Komdat.egg-info/PKG-INFO
+lib/Kelompok6_Komdat.egg-info/SOURCES.txt
+lib/Kelompok6_Komdat.egg-info/dependency_links.txt
+lib/Kelompok6_Komdat.egg-info/requires.txt
+lib/Kelompok6_Komdat.egg-info/top_level.txt
+lib/manc_lib/__init__.py
+lib/manc_lib/manc_lib.py
+lib/nrzl_lib/__init__.py
+lib/nrzl_lib/nrzl_lib.py

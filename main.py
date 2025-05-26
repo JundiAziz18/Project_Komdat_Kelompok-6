@@ -1,10 +1,13 @@
-from NRZL_LIB import *
+from NRZL_LIB import plot_hasil_nrzl
+from MANC_LIB import plot_manchester
 
-text = input("Enter text to encode: ")
-text = text.strip()
-if not text:
-    print("No input provided. Exiting.")
-    exit()
-signal, binary = nrzl_encode(text)
-plot_nrzl(signal, binary_str=binary)
-print("Decoded:", nrzl_decode(signal))
+# Contoh penggunaan
+
+def main():
+    input_char = input("Masukkan teks/ karakter untuk NRZ-L: ")  # Input teks dari pengguna
+    plot_hasil_nrzl(input_char)  # Panggil fungsi untuk memplot hasil NRZ-L
+
+    input_text = input("Masukkan teks/ karakter untuk Manchester: ")  # Input teks dari pengguna
+    plot_manchester(input_text)  # Panggil fungsi untuk memplot hasil Manchester
+
+main()  # Panggil fungsi utama

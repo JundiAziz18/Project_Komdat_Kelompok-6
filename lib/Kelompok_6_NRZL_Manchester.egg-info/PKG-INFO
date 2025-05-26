@@ -1,0 +1,21 @@
+Metadata-Version: 2.4
+Name: Kelompok-6-NRZL-Manchester
+Version: 0.1.2
+Summary: Library Enkoder dan Dekoder NRZL & Manchester Kelompok 6 untuk mata kuliah Komunikasi Data
+Home-page: https://github.com/JundiAziz18/Project_Komdat_Kelompok-6.git
+Author: Kelompok 6
+Author-email: -
+Classifier: Programming Language :: Python :: 3
+Classifier: Operating System :: OS Independent
+Requires-Python: >=3.6
+Requires-Dist: matplotlib
+Dynamic: author
+Dynamic: author-email
+Dynamic: classifier
+Dynamic: description
+Dynamic: home-page
+Dynamic: requires-dist
+Dynamic: requires-python
+Dynamic: summary
+
+Library ini menyediakan fungsi untuk enkoding dan dekoding sinyal NRZ-L dan Manchester. Dapat digunakan untuk keperluan pembelajaran mata kuliah Komunikasi Data.

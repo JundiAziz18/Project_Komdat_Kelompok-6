@@ -1,41 +1,89 @@
-# lib/NRZL_LIB/nrzl_LIB.py
+import matplotlib.pyplot as plt  # Import library matplotlib untuk plotting grafik
 
-import matplotlib.pyplot as plt
-
-def ascii_to_binary(text):
+# Fungsi untuk mengubah teks ASCII menjadi representasi biner 8-bit
+def ascii_to_bin_nrzl(text):
     return ''.join(format(ord(char), '08b') for char in text)
 
-def binary_to_ascii(binary_string):
-    chars = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]
-    return ''.join(chr(int(b, 2)) for b in chars)
+# Fungsi untuk mengubah representasi biner kembali menjadi teks ASCII
+def bin_to_ascii_nrzl(binary_string):
+    chars = [binary_string[i:i+8] for i in range(0, len(binary_string), 8)]  # Pisahkan setiap 8 bit
+    return ''.join(chr(int(b, 2)) for b in chars)  # Konversi ke karakter ASCII
 
-def nrzl_encode(text):
-    binary = ascii_to_binary(text)
-    signal = [-5 if bit == '1' else 5 for bit in binary]
-    return signal, binary
+# Fungsi untuk mengubah teks ke sinyal NRZ-L dengan dua polaritas: 1 → -1, 0 → +1
+def nrzl_enkoder(text):
+    binary = ascii_to_bin_nrzl(text)  # Ubah teks ke biner
+    signal = [-1 if bit == '1' else 1 for bit in binary]  # NRZ-L: 1 jadi -1V, 0 jadi +1V
+    return signal, binary  # Kembalikan sinyal dan representasi binernya
 
-def nrzl_decode(signal):
-    binary = ''.join('1' if level == -5 else '0' for level in signal)
-    return binary_to_ascii(binary)
+# Fungsi untuk mendekode sinyal NRZ-L ke teks
+def nrzl_dekoder(signal):
+    binary = ''.join('1' if level == -1 else '0' for level in signal)  # NRZ-L: -1V jadi '1', +1V jadi '0'
+    return bin_to_ascii_nrzl(binary), binary  # Kembalikan teks hasil decoding dan binernya
 
-def plot_nrzl(signal, title="NRZ-L Signal", binary_str=None):
-    time = []
-    voltage = []
-    for i, level in enumerate(signal):
-        time.extend([i, i + 1])
-        voltage.extend([level, level])
+# Fungsi untuk menghasilkan sinyal digital dari string biner (default: 0V untuk 0, 1V untuk 1)
+def sinyal_digital(binary_str, high=1, low=0):
+    signal = [high if bit == '1' else low for bit in binary_str]  # Konversi biner ke tegangan
+    time = []       # List waktu (untuk step plot)
+    voltage = []    # List tegangan
+    for i, level in enumerate(signal):  # Buat bentuk sinyal step
+        time.extend([i, i + 1])         # Tambahkan waktu awal dan akhir setiap bit
+        voltage.extend([level, level])  # Pertahankan level selama 1 bit time
+    return time, voltage
 
-    plt.figure(figsize=(12, 4))
-    plt.title(title)
-    plt.xlabel("Bit Time")
-    plt.ylabel("Voltage (V)")
-    plt.grid(True)
-    plt.ylim(-6, 6)
-    plt.yticks([-5, 0, 5])
-    plt.plot(time, voltage, drawstyle='steps-post', linewidth=2)
+# Fungsi utama untuk mem-visualisasikan seluruh proses NRZ-L
+def plot_hasil_nrzl(input_text):
+    nrzl_signal, input_biner = nrzl_enkoder(input_text)  # Encode input teks ke NRZ-L
+    decoded_text, biner_dekoder = nrzl_dekoder(nrzl_signal)  # Decode sinyal NRZ-L kembali ke teks
 
-    if binary_str:
-        for i, bit in enumerate(binary_str):
-            plt.text(i + 0.4, 5.5, bit, fontsize=12, ha='center')
+    # Hasilkan sinyal digital input (0 → 0V, 1 → 1V)
+    time_in, volt_in = sinyal_digital(input_biner, high=1, low=0)
 
-    plt.show()
+    # Buat sinyal NRZ-L (-1V untuk bit 1, +1V untuk bit 0)
+    time_nrzl = [] # Inisialisasi list untuk waktu dan tegangan NRZ-L
+    volt_nrzl = [] # Inisialisasi list untuk waktu dan tegangan NRZ-L
+    for i, level in enumerate(nrzl_signal): # Iterasi setiap level sinyal NRZ-L
+        time_nrzl.extend([i, i + 1]) # Tambahkan waktu untuk setiap level
+        volt_nrzl.extend([level, level]) # Tambahkan level tegangan untuk setiap level sinyal NRZ-L
+
+    # Hasilkan sinyal digital hasil decoding
+    time_out, volt_out = sinyal_digital(biner_dekoder, high=1, low=0)
+
+    # Buat plot: 3 subplot (Input, NRZ-L, dan Output)
+    fig, axs = plt.subplots(3, 1, figsize=(16, 9), sharex=True)  # 3 baris subplot, satu kolom
+    fig.suptitle(
+        f"Grafik Enkoder dan Dekoder dengan NRZ-L n\nInput: {input_text} \nBiner: {input_biner} \nHasil Dekoder: {decoded_text}",
+        fontsize=14
+    )
+
+    # Plot sinyal biner input
+    axs[0].plot(time_in, volt_in, drawstyle='steps-post', linewidth=2, color='green')
+    axs[0].set_title("Input Sinyal Biner")  # Judul subplot
+    axs[0].set_ylim(-0.5, 1.5)  # Skala Y
+    axs[0].set_yticks([0, 1])   # Label Y
+    axs[0].grid(True)          # Tampilkan grid
+    for i, bit in enumerate(input_biner):  # Tampilkan nilai bit di atas sinyal
+        axs[0].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+
+    # Plot sinyal hasil encoding NRZ-L
+    axs[1].plot(time_nrzl, volt_nrzl, drawstyle='steps-post', linewidth=2, color='blue')
+    axs[1].set_title("Hasil Enkoder NRZ-L")
+    axs[1].set_ylim(-1, 1.8)
+    axs[1].set_yticks([-1, 0, 1])
+    axs[1].grid(True)
+    for i, bit in enumerate(input_biner):  # Tampilkan nilai bit di atas sinyal
+        axs[1].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+
+    # Plot sinyal hasil decoding
+    axs[2].plot(time_out, volt_out, drawstyle='steps-post', linewidth=2, color='orange')
+    axs[2].set_title("Hasil Dekoder")
+    axs[2].set_ylim(-0.5, 1.5)
+    axs[2].set_yticks([0, 1])
+    axs[2].grid(True)
+    for i, bit in enumerate(biner_dekoder):  # Tampilkan nilai bit
+        axs[2].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+
+    # Atur layout agar tidak tumpang tindih
+    plt.tight_layout(rect=[0, 0.03, 1, 0.95]) 
+    plt.show()  # Tampilkan semua plot
+
+# Fungsi untuk mengembalikan semua fungsi yang dapat diakses dari modul ini
