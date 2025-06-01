@@ -63,13 +63,13 @@ def plot_manchester(input_text): # Fungsi untuk memplot sinyal Manchester
     fig.suptitle(f"$\\bf{{Enkoder\\ dan\\ Dekoder\\ Manchester\\ IEEE}}$", fontsize=14, y=0.95, x=0.5)    # Judul utama grafik
 
     # Tambahkan teks deskriptif di bawah judul utama
-    fig.text(0.51, 0.90, f"Input Text: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
-    fig.text(0.51, 0.87, f"Input Binary: {binary_input}", ha='center', fontsize=12) # Teks biner input
-    fig.text(0.51, 0.84, f"Decoded Text: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
+    fig.text(0.51, 0.90, f"Input\t\t: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
+    fig.text(0.51, 0.87, f"Input Biner\t: {binary_input}", ha='center', fontsize=12) # Teks biner input
+    fig.text(0.51, 0.84, f"Hasil Dekoder\t: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
 
     # Plot input binary
     axs[0].plot(time_input, volt_input, drawstyle='steps-post', color='green', linewidth=2) # Plot sinyal biner input
-    axs[0].set_title("Input", fontweight='bold') # Judul grafik input biner
+    axs[0].set_title("Input Sinyal Biner", fontweight='bold') # Judul grafik input biner
     axs[0].set_ylim(-0.5, 1.5) # Set batas y untuk grafik input biner
     axs[0].set_yticks([0, 1]) # Set tick y untuk grafik input biner
     axs[0].grid(True, which='major', axis='y') # Tambahkan grid pada grafik input biner
