@@ -1,4 +1,5 @@
 import matplotlib.pyplot as plt  # Import library matplotlib untuk plotting grafik
+from matplotlib.ticker import  MultipleLocator  # Import MaxNLocator untuk mengatur jumlah tick pada sumbu
 
 # Fungsi untuk mengubah teks ASCII menjadi representasi biner 8-bit
 def ascii_to_bin_nrzl(text):
@@ -49,41 +50,47 @@ def plot_hasil_nrzl(input_text):
     time_out, volt_out = sinyal_digital(biner_dekoder, high=1, low=0)
 
     # Buat plot: 3 subplot (Input, NRZ-L, dan Output)
-    fig, axs = plt.subplots(3, 1, figsize=(16, 9), sharex=True)  # 3 baris subplot, satu kolom
-    fig.suptitle(
-        f"Grafik Enkoder dan Dekoder dengan NRZ-L n\nInput: {input_text} \nBiner: {input_biner} \nHasil Dekoder: {decoded_text}",
-        fontsize=14
-    )
-
+    fig, axs = plt.subplots(3, 1, figsize=(16, 10), sharex=True)  # 3 baris subplot, satu kolom
+    fig.suptitle(f"$\\bf{{Enkoder\\ dan\\ Dekoder\\ NRZ-L}}$",fontsize=14, y=0.95)  # Judul utama plot
+    # Tambahkan teks deskriptif di bawah judul utama
+    fig.text(0.52, 0.90, f"Input Text: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
+    fig.text(0.52, 0.87, f"Input Binary: {input_biner}", ha='center', fontsize=12) # Teks biner input
+    fig.text(0.52, 0.84, f"Decoded Text: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
+    
     # Plot sinyal biner input
-    axs[0].plot(time_in, volt_in, drawstyle='steps-post', linewidth=2, color='green')
-    axs[0].set_title("Input Sinyal Biner")  # Judul subplot
+    axs[0].plot(time_in, volt_in, drawstyle='steps-post', linewidth=2, color='green') # Sinyal biner input
+    axs[0].set_title("\nInput Sinyal Biner", fontweight='bold')  # Judul subplot
     axs[0].set_ylim(-0.5, 1.5)  # Skala Y
     axs[0].set_yticks([0, 1])   # Label Y
     axs[0].grid(True)          # Tampilkan grid
+    for i in range(len(input_biner) + 1):
+        axs[0].axvline(i, color='gray', linestyle='--', linewidth=0.5) # Garis vertikal untuk setiap bit
     for i, bit in enumerate(input_biner):  # Tampilkan nilai bit di atas sinyal
-        axs[0].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+        axs[0].text(i + 0.5, 1.1, bit, ha='center', fontsize=9, fontweight='bold')
+        
 
     # Plot sinyal hasil encoding NRZ-L
-    axs[1].plot(time_nrzl, volt_nrzl, drawstyle='steps-post', linewidth=2, color='blue')
-    axs[1].set_title("Hasil Enkoder NRZ-L")
-    axs[1].set_ylim(-1, 1.8)
-    axs[1].set_yticks([-1, 0, 1])
-    axs[1].grid(True)
+    axs[1].plot(time_nrzl, volt_nrzl, drawstyle='steps-post', linewidth=2, color='blue') # Sinyal NRZ-L
+    axs[1].set_title("\nHasil Enkoder NRZ-L", fontweight='bold') # Judul subplot
+    axs[1].set_ylim(-1.5, 1.5) # Skala Y
+    axs[1].set_yticks([-1, 0, 1]) # Label Y
+    axs[1].grid(True) # Tampilkan grid
+    for i in range(len(input_biner) + 1): # Garis vertikal untuk setiap bit
+        axs[1].axvline(i, color='gray', linestyle='--', linewidth=0.5) # Garis vertikal untuk setiap bit
     for i, bit in enumerate(input_biner):  # Tampilkan nilai bit di atas sinyal
-        axs[1].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+        axs[1].text(i + 0.5, 1.2, bit, ha='center', fontsize=9, fontweight='bold')
 
     # Plot sinyal hasil decoding
-    axs[2].plot(time_out, volt_out, drawstyle='steps-post', linewidth=2, color='orange')
-    axs[2].set_title("Hasil Dekoder")
-    axs[2].set_ylim(-0.5, 1.5)
-    axs[2].set_yticks([0, 1])
-    axs[2].grid(True)
+    axs[2].plot(time_out, volt_out, drawstyle='steps-post', linewidth=2, color='orange') # Sinyal hasil decoding
+    axs[2].set_title("\nHasil Dekoder", fontweight='bold') # Judul subplot
+    axs[2].set_ylim(-0.5, 1.5) # Skala Y
+    axs[2].set_yticks([0, 1]) # Label Y
+    axs[2].grid(True) # Tampilkan grid
+    for i in range(len(input_biner) + 1): # Garis vertikal untuk setiap bit
+        axs[2].axvline(i, color='gray', linestyle='--', linewidth=0.5) # Garis vertikal untuk setiap bit
     for i, bit in enumerate(biner_dekoder):  # Tampilkan nilai bit
-        axs[2].text(i + 0.5, 1.1, bit, ha='center', fontsize=9)
+        axs[2].text(i + 0.5, 1.1, bit, ha='center', fontsize=9, fontweight='bold') # Tampilkan nilai bit di atas sinyal
 
     # Atur layout agar tidak tumpang tindih
-    plt.tight_layout(rect=[0, 0.03, 1, 0.95]) 
+    plt.tight_layout(rect=[0, 0.03, 1, 0.84]) # Atur margin bawah untuk teks deskriptif 
     plt.show()  # Tampilkan semua plot
-
-# Fungsi untuk mengembalikan semua fungsi yang dapat diakses dari modul ini
