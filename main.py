@@ -1,7 +1,7 @@
 from NRZL_LIB import plot_hasil_nrzl
 from MANC_LIB import plot_manchester
 
-# Contoh penggunaan
+# Program utama untuk memilih jenis enkoder dan menjalankan fungsinya
 while True:
     print("\n=== Menu Encoder ===") # Menampilkan menu utama
     print("1. NRZ-L Encoder and Decoder") # Pilihan untuk NRZ-L Encoder dan Decoder
