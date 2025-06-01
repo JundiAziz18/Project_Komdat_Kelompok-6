@@ -53,9 +53,9 @@ def plot_hasil_nrzl(input_text):
     fig, axs = plt.subplots(3, 1, figsize=(16, 10), sharex=True)  # 3 baris subplot, satu kolom
     fig.suptitle(f"$\\bf{{Enkoder\\ dan\\ Dekoder\\ NRZ-L}}$",fontsize=14, y=0.95)  # Judul utama plot
     # Tambahkan teks deskriptif di bawah judul utama
-    fig.text(0.52, 0.90, f"Input\t\t: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
-    fig.text(0.52, 0.87, f"Input Biner\t: {input_biner}", ha='center', fontsize=12) # Teks biner input
-    fig.text(0.52, 0.84, f"Hasil Dekoder\t: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
+    fig.text(0.52, 0.90, f"Input: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
+    fig.text(0.52, 0.87, f"Input Biner: {input_biner}", ha='center', fontsize=12) # Teks biner input
+    fig.text(0.52, 0.84, f"Hasil Dekoder: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
     
     # Plot sinyal biner input
     axs[0].plot(time_in, volt_in, drawstyle='steps-post', linewidth=2, color='green') # Sinyal biner input

@@ -63,9 +63,9 @@ def plot_manchester(input_text): # Fungsi untuk memplot sinyal Manchester
     fig.suptitle(f"$\\bf{{Enkoder\\ dan\\ Dekoder\\ Manchester\\ IEEE}}$", fontsize=14, y=0.95, x=0.5)    # Judul utama grafik
 
     # Tambahkan teks deskriptif di bawah judul utama
-    fig.text(0.51, 0.90, f"Input\t\t: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
-    fig.text(0.51, 0.87, f"Input Biner\t: {binary_input}", ha='center', fontsize=12) # Teks biner input
-    fig.text(0.51, 0.84, f"Hasil Dekoder\t: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
+    fig.text(0.51, 0.90, f"Input: {input_text}", ha='center', fontsize=12) # Teks input yang akan dienkode
+    fig.text(0.51, 0.87, f"Input Biner: {binary_input}", ha='center', fontsize=12) # Teks biner input
+    fig.text(0.51, 0.84, f"Hasil Dekoder: {decoded_text}", ha='center', fontsize=12) # Teks yang didekode dari sinyal Manchester
 
     # Plot input binary
     axs[0].plot(time_input, volt_input, drawstyle='steps-post', color='green', linewidth=2) # Plot sinyal biner input
