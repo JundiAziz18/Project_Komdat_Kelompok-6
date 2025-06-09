@@ -60,7 +60,7 @@ def plot_hasil_nrzl(input_text):
     # Plot sinyal biner input
     axs[0].plot(time_in, volt_in, drawstyle='steps-post', linewidth=2, color='green') # Sinyal biner input
     axs[0].set_title("\nInput Sinyal Biner", fontweight='bold')  # Judul subplot
-    axs[0].set_ylim(-0.5, 1.5)  # Skala Y
+    axs[0].set_ylim(-0.5, 1.5) # Skala Y 
     axs[0].set_yticks([0, 1])   # Label Y
     axs[0].grid(True)          # Tampilkan grid
     for i in range(len(input_biner) + 1):

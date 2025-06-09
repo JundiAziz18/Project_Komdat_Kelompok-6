@@ -1,25 +1,41 @@
-from NRZL_LIB import plot_hasil_nrzl
-from MANC_LIB import plot_manchester
+from lib.nrzl_lib.nrzl_encoder import * 
+from lib.nrzl_lib.nrzl_decoder import * 
+from lib.manc_lib.manc_encoder import * 
+from lib.manc_lib.manc_decoder import * 
 
-# Program utama untuk memilih jenis enkoder dan menjalankan fungsinya
-while True:
-    print("\n=== Menu Encoder ===") # Menampilkan menu utama
-    print("1. NRZ-L Encoder and Decoder") # Pilihan untuk NRZ-L Encoder dan Decoder
-    print("2. Manchester Encoder and Decoder")   # Pilihan untuk Manchester Encoder dan Decoder
-    print("3. Keluar") # Pilihan untuk keluar dari program
-    pilihan = input("Pilih jenis encoder (1/2/3): ")    # Input pilihan dari pengguna
+if __name__ == "__main__":
+    while True:
+        print("\nPilih Tipe Enkoder :")
+        print("1. NRZ-L")
+        print("2. Manchester")
+        print("3. Exit")
+        choice = input("Masukan pilihan anda (1/2/3): ")
 
-    if pilihan == "1": # Jika pilihan adalah 1
-        print("=== NRZ-L Encoder and Decoder ===") # Menampilkan judul NRZ-L Encoder dan Decoder
-        input_nrzl = input("Masukkan teks/ karakter untuk NRZ-L: ") # Input teks/karakter untuk NRZ-L
-        plot_hasil_nrzl(input_nrzl) # Memanggil fungsi untuk memplot hasil NRZ-L
-    elif pilihan == "2": # Jika pilihan adalah 2
-        print("=== Manchester Encoder and Decoder ===") # Menampilkan judul Manchester Encoder dan Decoder
-        input_manchester = input("Masukkan teks/ karakter untuk Manchester: ") # Input teks/karakter untuk Manchester
-        plot_manchester(input_manchester) # Memanggil fungsi untuk memplot hasil Manchester
-    elif pilihan == "3": # Jika pilihan adalah 3
-        print("Terima kasih telah menggunakan program ini.") # Menampilkan pesan terima kasih
-        break # Keluar dari loop dan program
-    else: # Jika pilihan tidak valid
-        print("Pilihan tidak valid. Silakan coba lagi.") # Menampilkan pesan kesalahan
+        if choice == "1":
+            text = input("Masukan input teks untuk dienkoding dengan NRZ-L: ")            
+            plot_encoder_nrzl(text)
 
+            signal, _ = nrzl_enkoder(text)
+            print("Sinyal NRZ-L yang akan didekode:", f"\"{'-'.join(map(str, signal))}\"")
+            decoded_text, binary_output = nrzl_dekoder(signal)
+            print(f"Hasil Dekode: \"{decoded_text}\"")
+            print(f"Output Biner Dekode: \"{binary_output}\"")
+            plot_decoder_nrzl(signal)
+
+        elif choice == "2":
+            text = input("Masukan input teks untuk dienkoding dengan Manchester: ")
+            plot_encoder(text)
+
+            signal_manchester, _ = enkoder_manchester(text)
+            print(f"Sinyal Manchester yang akan didekode: \"{'-'.join(map(str, signal_manchester))}\"")
+            decoded_text, binary_output = dekoder_manchester(signal_manchester)
+            print(f"Hasil Dekode: \"{decoded_text}\"")
+            print(f"Output Biner Dekode: \"{binary_output}\"")
+            plot_decoder(signal_manchester)
+
+        elif choice == "3":
+            print("Exit program.")
+            break
+
+        else:
+            print(" Pilihan Invalid\n Coba Lagi!!!.")

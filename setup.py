@@ -2,7 +2,7 @@ from setuptools import find_packages, setup
 
 setup(
     name='Kelompok6_Komdat',
-    version='0.1.3',
+    version='0.1.4',
     description='Library Enkoder dan Dekoder NRZL & Manchester Kelompok 6' \
                 ' untuk mata kuliah Komunikasi Data',
     long_description='Library ini menyediakan fungsi untuk enkoding dan dekoding sinyal NRZ-L dan Manchester. ' \

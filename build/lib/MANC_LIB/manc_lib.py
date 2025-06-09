@@ -21,7 +21,7 @@ def enkoder_manchester(text):
 def dekoder_manchester(signal): # Fungsi untuk mendekode sinyal Manchester
     binary = '' # Inisialisasi string biner kosong
     for i in range(0, len(signal), 2):  # Iterasi setiap dua level sinyal
-        pair = signal[i:i+2] # Mengambil sepasang level sinyal
+        pair = signal[i:i+2] # Mengambil sepasang level sinyal # Mengambil dua level sinyal
         if pair == [-1, 1]: # Jika pasangan adalah [-1, 1]
             binary += '1' # Tambahkan '0' ke string biner
         elif pair == [1, -1]: # Jika pasangan adalah [1, -1]
@@ -87,7 +87,7 @@ def plot_manchester(input_text): # Fungsi untuk memplot sinyal Manchester
     for i in range(total_bits + 1): # Tambahkan garis vertikal untuk setiap bit pada grafik sinyal Manchester
         axs[1].axvline(x=i * 2, color='gray', linestyle='--', linewidth=0.5) # Garis vertikal untuk setiap bit pada grafik sinyal Manchester
     for i in range(total_bits): # Tambahkan teks untuk setiap bit pada grafik sinyal Manchester
-        axs[1].text(i * 2 + 1, 1.5, binary_input[i], ha='center', fontsize=9, fontweight='bold') # Teks untuk setiap bit pada grafik sinyal Manchester
+        axs[1].text(i * bit_width + 1, 1.5, binary_input[i], ha='center', fontsize=9, fontweight='bold') # Teks untuk setiap bit pada grafik sinyal Manchester
 
     # Plot decoded output
     axs[2].plot(time_output, volt_output, drawstyle='steps-post', color='red', linewidth=2) # Plot sinyal biner yang didekode
